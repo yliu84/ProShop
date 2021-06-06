@@ -6,7 +6,7 @@ import { useAlert } from 'react-alert'
 import { Button, Row, Col, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductReviews, deleteReview, clearErrors } from '../../actions/productActions'
-import { DELETE_REVIEW_RESET } from '../../constants/productConstants'
+import { PRODUCT_DELETE_REVIEW_RESET } from '../../constants/productConstants'
 import FormContainer from '../../components/FormContainer'
 
 const ProductReviewScreen = () => {
@@ -32,7 +32,7 @@ const ProductReviewScreen = () => {
 
         if (isDeleted) {
             alert.success('Review deleted successfully');
-            dispatch({ type: DELETE_REVIEW_RESET });
+            dispatch({ type: PRODUCT_DELETE_REVIEW_RESET });
         }
     }, [dispatch, alert, error, productId, isDeleted, deleteError])
 
