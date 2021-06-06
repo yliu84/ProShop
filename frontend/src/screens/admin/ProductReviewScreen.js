@@ -37,8 +37,10 @@ const ProductReviewScreen = () => {
     }, [dispatch, alert, error, productId, isDeleted, deleteError])
 
     const deleteReviewHandler = (id) => {
-        dispatch(deleteReview(id, productId))
-        dispatch(getProductReviews(productId))
+        if (window.confirm('Are you sure to delete this review?')) {
+            dispatch(deleteReview(id, productId))
+            dispatch(getProductReviews(productId))
+        }
     }
 
     const submitHandler = (e) => {
@@ -105,25 +107,32 @@ const ProductReviewScreen = () => {
                 <Col md={10}>
                     <h1 className="my-3">Product Reviews</h1>
                     <FormContainer>
-                        <Col md={5}>
+                        <Col md={10}>
                             <Form onSubmit={submitHandler}>
-                                <Form.Group controlId='productId'>
-                                <Form.Label>Product ID</Form.Label>
-                                <Form.Control
-                                    type='text'
-                                    placeholder='Enter Product ID'
-                                    value={productId}
-                                    onChange={(e) => setProductId(e.target.value)}
-                                ></Form.Control>
+                                <Form.Group as={Row} controlId='productId'>
+                                    <Form.Label column sm={3}>Product ID</Form.Label>
+                                    <Col sm={7}>
+                                        <Form.Control
+                                            type='text'
+                                            placeholder='Enter Product ID'
+                                            value={productId}
+                                            required
+                                            onChange={(e) => setProductId(e.target.value)}
+                                        ></Form.Control>
+                                    </Col>
+                                    <Col sm={2}>
+                                        <Button
+                                            id="search_button"
+                                            type="submit"
+                                            variant="primary"
+                                            className="py-2"
+                                        >
+                                            SEARCH
+                                        </Button>
+                                    </Col>
+                                    
                                 </Form.Group>
-                                <Button
-                                    id="search_button"
-                                    type="submit"
-                                    variant="primary"
-                                    className="btn-block py-2"
-                                >
-                                    SEARCH
-                                </Button>
+                                
                             </Form>
                         </Col>
                     </FormContainer>
