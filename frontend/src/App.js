@@ -26,6 +26,7 @@ import UserEditScreen from './screens/admin/UserEditScreen'
 import ProductListScreen from './screens/admin/ProductListScreen'
 import ProductCreateScreen from './screens/admin/ProductCreateScreen'
 import ProductUpdateScreen from './screens/admin/ProductUpdateScreen'
+import ProductReviewScreen from './screens/admin/ProductReviewScreen'
 import OrderListScreen from './screens/admin/OrderListScreen'
 import OrderUpdateScreen from './screens/admin/OrderUpdateScreen'
 
@@ -82,7 +83,7 @@ const App = () => {
             <ProtectedRoute path="/admin/product/:id" isAdmin={true} component={ProductUpdateScreen} exact />
             <ProtectedRoute path="/admin/orders" isAdmin={true} component={OrderListScreen} exact />
             <ProtectedRoute path="/admin/order/:id" isAdmin={true} component={OrderUpdateScreen} exact />
-
+            <ProtectedRoute path="/admin/reviews" isAdmin={true} component={ProductReviewScreen} exact />
           </div>
           
         </main>

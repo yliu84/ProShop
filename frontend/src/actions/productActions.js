@@ -21,6 +21,12 @@ import {
   PRODUCT_CREATE_REVIEW_REQUEST,
   PRODUCT_CREATE_REVIEW_SUCCESS,
   PRODUCT_CREATE_REVIEW_FAIL,
+  PRODUCT_REVIEWS_LIST_REQUEST,
+  PRODUCT_REVIEWS_LIST_SUCCESS,
+  PRODUCT_REVIEWS_LIST_FAIL,
+  PRODUCT_DELETE_REVIEW_REQUEST,
+  PRODUCT_DELETE_REVIEW_SUCCESS,
+  PRODUCT_DELETE_REVIEW_FAIL,
   PRODUCT_TOP_REQUEST,
   PRODUCT_TOP_SUCCESS,
   PRODUCT_TOP_FAIL,
@@ -179,6 +185,50 @@ export const createProductReview = (productId, review) => async (
       payload: error.response.data.message
     })
   }
+}
+
+// Get product reviews
+export const getProductReviews = (id) => async (dispatch) => {
+    try {
+
+        dispatch({ type: PRODUCT_REVIEWS_LIST_REQUEST })
+
+        const { data } = await api.get(`/reviews?id=${id}`)
+
+        dispatch({
+            type: PRODUCT_REVIEWS_LIST_SUCCESS,
+            payload: data.reviews
+        })
+
+    } catch (error) {
+
+        dispatch({
+            type: PRODUCT_REVIEWS_LIST_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
+
+// Delete product review
+export const deleteReview = (id, productId) => async (dispatch) => {
+    try {
+
+        dispatch({ type: PRODUCT_DELETE_REVIEW_REQUEST })
+
+        const { data } = await api.delete(`/reviews?id=${id}&productId=${productId}`)
+
+        dispatch({
+            type: PRODUCT_DELETE_REVIEW_SUCCESS,
+            payload: data.success
+        })
+
+    } catch (error) {
+
+        dispatch({
+            type: PRODUCT_DELETE_REVIEW_FAIL,
+            payload: error.response.data.message
+        })
+    }
 }
 
 export const listTopProducts = () => async (dispatch) => {

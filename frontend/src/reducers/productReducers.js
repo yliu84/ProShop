@@ -29,12 +29,13 @@ import {
   PRODUCT_REVIEWS_LIST_SUCCESS,
   PRODUCT_REVIEWS_LIST_FAIL,
   PRODUCT_DELETE_REVIEW_REQUEST,
+  PRODUCT_DELETE_REVIEW_SUCCESS,
   PRODUCT_DELETE_REVIEW_FAIL,
   PRODUCT_DELETE_REVIEW_RESET,
   PRODUCT_TOP_REQUEST,
   PRODUCT_TOP_SUCCESS,
   PRODUCT_TOP_FAIL,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
 } from '../constants/productConstants'
 
 export const productListReducer = (state = {products: []}, action) => {
@@ -278,6 +279,45 @@ export const productReviewsListReducer = (state = { review: [] }, action) => {
                 ...state,
                 loading: false,
                 error: action.payload
+            }
+
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
+            }
+
+        default:
+            return state
+    }
+}
+
+export const productReviewDeleteReducer = (state = {}, action) => {
+    switch (action.type) {
+
+        case PRODUCT_DELETE_REVIEW_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+
+        case PRODUCT_DELETE_REVIEW_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                isDeleted: action.payload
+            }
+
+        case PRODUCT_DELETE_REVIEW_FAIL:
+            return {
+                ...state,
+                error: action.payload
+            }
+
+        case PRODUCT_DELETE_REVIEW_RESET:
+            return {
+                ...state,
+                isDeleted: false
             }
 
         case CLEAR_ERRORS:
